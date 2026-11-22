@@ -116,7 +116,7 @@ export function Hero() {
       {/* scroll indicator */}
       <a
         href="#home-gallery"
-        className="absolute bottom-8 right-6 z-10 flex items-center gap-4 text-xs uppercase tracking-[0.3em] text-ivory/70 transition-colors hover:text-gold md:right-12"
+        className="absolute bottom-8 left-1/2 z-10 flex -translate-x-1/2 items-center gap-4 text-xs uppercase tracking-[0.3em] text-ivory/70 transition-colors hover:text-gold"
       >
         <span className="link-underline">Scroll</span>
         <span className="relative flex h-10 w-6 justify-center rounded-full border border-gold/70 pt-2">

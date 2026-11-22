@@ -16,6 +16,8 @@ export function ShowreelDialog({ open, onOpenChange }: { open: boolean; onOpenCh
     return () => clearInterval(id);
   }, [open]);
 
+  const cur = reel[i % reel.length]!;
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-5xl overflow-hidden border-gold/30 bg-ink p-0 text-ivory sm:rounded-none">
@@ -34,9 +36,9 @@ export function ShowreelDialog({ open, onOpenChange }: { open: boolean; onOpenCh
             <>
               <AnimatePresence>
                 <motion.img
-                  key={reel[i].id}
-                  src={reel[i].src}
-                  alt={reel[i].alt}
+                  key={cur.id}
+                  src={cur.src}
+                  alt={cur.alt}
                   initial={{ opacity: 0, scale: 1.02 }}
                   animate={{ opacity: 1, scale: 1.12 }}
                   exit={{ opacity: 0 }}
@@ -48,8 +50,8 @@ export function ShowreelDialog({ open, onOpenChange }: { open: boolean; onOpenCh
               <div className="absolute inset-x-0 top-0 h-[9%] bg-ink" />
               <div className="absolute inset-x-0 bottom-0 h-[9%] bg-ink" />
               <div className="absolute bottom-[12%] left-6 md:left-10">
-                <p className="eyebrow !text-gold">{reel[i].category}</p>
-                <p className="font-serif text-3xl md:text-5xl">{reel[i].title}</p>
+                <p className="eyebrow !text-gold">{cur.category}</p>
+                <p className="font-serif text-3xl md:text-5xl">{cur.title}</p>
               </div>
               <div className="absolute right-6 top-[12%] text-right text-xs uppercase tracking-[0.3em] text-ivory/70 md:right-10">
                 Showreel preview · full film premiering soon

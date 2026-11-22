@@ -10,7 +10,7 @@ export function SuccessPanel({
 }: {
   title: string;
   message: string;
-  onReset?: () => void;
+  onReset?: (() => void) | undefined;
   resetLabel?: string;
 }) {
   return (

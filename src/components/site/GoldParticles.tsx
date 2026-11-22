@@ -37,7 +37,7 @@ export function GoldParticles({ count = 42, className }: { count?: number; class
     let raf = 0;
     let visible = true;
     const io = new IntersectionObserver(([e]) => {
-      visible = e.isIntersecting;
+      visible = e?.isIntersecting ?? false;
       if (visible) loop();
     });
     io.observe(canvas);

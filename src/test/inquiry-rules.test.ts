@@ -39,8 +39,8 @@ describe("packages", () => {
   });
 
   it("shows 'Price on request' until a price is configured", () => {
-    expect(formatPrice({ ...packages[0], price: null })).toBe("Price on request");
-    expect(formatPrice({ ...packages[0], price: "PKR 10,000" })).toBe("PKR 10,000");
+    expect(formatPrice({ ...packages[0]!, price: null })).toBe("Price on request");
+    expect(formatPrice({ ...packages[0]!, price: "PKR 10,000" })).toBe("PKR 10,000");
   });
 });
 

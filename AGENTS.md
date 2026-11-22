@@ -28,3 +28,10 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Project rules
+- Business details (phone, WhatsApp, email, socials, showreel) live only in `src/config/site.ts`; content lists live in `src/data/*`. Why: the owner edits one place and every page updates.
+- Package prices are `null` in `src/data/packages.ts` until the owner supplies them; UI shows "Price on request". Why: never invent business prices.
+- Form validation schemas in `src/lib/inquiry-schema.ts` are shared by the browser forms and the server functions in `src/lib/inquiries.functions.ts`. Why: one source of truth for rules.
+- Inquiry/booking tables accept anonymous inserts only (no public reads); server functions insert with the publishable key. Why: visitors can submit but never read submissions.
+- Colors come from tokens in `src/styles.css`; light mode is the `.light` class on `<html>`. Why: keep the black-and-gold brand consistent in both themes.

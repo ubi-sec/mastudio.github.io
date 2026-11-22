@@ -19,9 +19,9 @@ export function PackageInquiryForm({
   defaultEventType,
   onDone,
 }: {
-  defaultPackage?: string;
-  defaultEventType?: string;
-  onDone?: () => void;
+  defaultPackage?: string | undefined;
+  defaultEventType?: string | undefined;
+  onDone?: (() => void) | undefined;
 }) {
   const submit = useServerFn(submitPackageInquiry);
   const [done, setDone] = useState<null | "form" | "whatsapp">(null);

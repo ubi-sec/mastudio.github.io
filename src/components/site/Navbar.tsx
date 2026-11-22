@@ -23,7 +23,9 @@ export function Navbar() {
     <header
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-all duration-500",
-        scrolled ? "border-b border-border bg-background/85 py-3 backdrop-blur-xl" : "py-5",
+        scrolled
+          ? "border-b border-border bg-background/85 py-3 backdrop-blur-xl"
+          : "py-5 light:bg-background/80 light:backdrop-blur-xl",
       )}
     >
       <nav className="container-lux flex items-center justify-between gap-6" aria-label="Main">

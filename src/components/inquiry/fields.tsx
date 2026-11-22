@@ -20,10 +20,10 @@ export function Field({
 }: {
   label: string;
   htmlFor: string;
-  error?: string;
-  required?: boolean;
+  error?: string | undefined;
+  required?: boolean | undefined;
   children: React.ReactNode;
-  className?: string;
+  className?: string | undefined;
 }) {
   return (
     <div className={cn("flex flex-col gap-1", className)}>
@@ -50,14 +50,14 @@ export function SelectField({
   invalid,
 }: {
   id: string;
-  value?: string;
+  value?: string | undefined;
   onChange: (v: string) => void;
   options: readonly string[];
   placeholder: string;
-  invalid?: boolean;
+  invalid?: boolean | undefined;
 }) {
   return (
-    <Select value={value || undefined} onValueChange={onChange}>
+    <Select value={value ?? ""} onValueChange={onChange}>
       <SelectTrigger
         id={id}
         aria-invalid={invalid}
@@ -83,9 +83,9 @@ export function DateField({
   invalid,
 }: {
   id: string;
-  value?: string;
+  value?: string | undefined;
   onChange: (v: string) => void;
-  invalid?: boolean;
+  invalid?: boolean | undefined;
 }) {
   const [open, setOpen] = useState(false);
   const selected = value ? parseISO(value) : undefined;

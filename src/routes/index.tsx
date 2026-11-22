@@ -1,23 +1,36 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { AboutSection } from "@/components/sections/AboutSection";
+import { ContactSection } from "@/components/sections/ContactSection";
+import { GallerySection } from "@/components/sections/GallerySection";
+import { Hero } from "@/components/sections/Hero";
+import { PackagesSection } from "@/components/sections/PackagesSection";
+import { PortfolioSection } from "@/components/sections/PortfolioSection";
+import { ServicesSection } from "@/components/sections/ServicesSection";
+import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
+import { pageHead } from "@/lib/seo";
 
-// The home route ships no og:image, so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
+  head: () =>
+    pageHead({
+      title: "MA Studio — Capturing Moments. Creating Timeless Stories.",
+      description:
+        "Luxury wedding, portrait, event, fashion and commercial photography & cinematography by MA Studio, Faisalabad.",
+      path: "/",
+    }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
+    <>
+      <Hero />
+      <GallerySection id="home-gallery" limit={9} />
+      <ServicesSection />
+      <PackagesSection />
+      <PortfolioSection limit={3} />
+      <AboutSection />
+      <TestimonialsSection />
+      <ContactSection />
+    </>
   );
 }
