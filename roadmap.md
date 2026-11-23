@@ -1,12 +1,14 @@
 # MA Studio roadmap
 
-- [x] Design system (black/gold tokens, fonts, light mode)
-- [x] Generate sample photography
-- [x] Cloud tables for package inquiries + booking requests
-- [x] Home page with all sections
-- [x] Dedicated pages: gallery, services, packages, portfolio (+ project pages), about, contact
-- [x] Inquiry dialog + booking form with real submission and WhatsApp option
-- [x] WhatsApp 03076998873, email, Faisalabad wired in
-- [ ] Instagram / Facebook / YouTube links — waiting on owner
-- [ ] Final package prices — waiting on owner
+- [x] Public site: home, gallery, services, packages, portfolio, about, contact, inquiry + booking forms
+- [ ] Admin panel: secure admin sign-in (email/password, forgot password)
+- [ ] Admin: dashboard with real stats + revenue chart
+- [ ] Admin: gallery manager (uploads, publish, featured) → public gallery
+- [ ] Admin: portfolio manager → public portfolio
+- [ ] Admin: packages manager (seed Basic 20k / Premium 50k / Luxury 80k PKR) → public packages
+- [ ] Admin: customers, inquiries (status/notes), bookings (convert inquiry)
+- [ ] Admin: invoices (auto numbers, totals, payments, PDF, print, WhatsApp share)
+- [ ] Admin: expenses with receipts + income summary
+- [ ] Admin: social links + website settings → public footer/contact/hero/about
+- [ ] Confirm admin email (answer looked like a password) — waiting on owner
 - [ ] Owner email notifications for new inquiries — needs a verified sending domain
