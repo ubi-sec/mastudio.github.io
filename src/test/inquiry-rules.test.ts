@@ -34,13 +34,16 @@ describe("inquiry rules", () => {
 
 describe("packages", () => {
   it("has Basic, Premium and Luxury with Premium marked most popular", () => {
-    expect(packages.map((p) => p.id)).toEqual(["basic", "premium", "luxury"]);
+    expect(packages.map((p) => p.slug)).toEqual(["basic", "premium", "luxury"]);
     expect(packages.filter((p) => p.popular).map((p) => p.id)).toEqual(["premium"]);
   });
 
-  it("shows 'Price on request' until a price is configured", () => {
-    expect(formatPrice({ ...packages[0]!, price: null })).toBe("Price on request");
-    expect(formatPrice({ ...packages[0]!, price: "PKR 10,000" })).toBe("PKR 10,000");
+  it("uses the owner's prices: Basic 20,000, Premium 50,000, Luxury 80,000 PKR", () => {
+    expect(packages.map((p) => formatPrice(p))).toEqual(["PKR 20,000", "PKR 50,000", "PKR 80,000"]);
+  });
+
+  it("shows 'Price on request' when no price is set", () => {
+    expect(formatPrice({ price: null })).toBe("Price on request");
   });
 });
 

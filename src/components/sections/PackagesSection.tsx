@@ -4,12 +4,15 @@ import { GoldParticles } from "@/components/site/GoldParticles";
 import { Reveal } from "@/components/site/Reveal";
 import { SectionHeading } from "@/components/site/SectionHeading";
 import { Button } from "@/components/ui/button";
-import { formatPrice, packageComparison, packages } from "@/data/packages";
+import { buildComparison, formatPrice } from "@/data/packages";
+import { usePackages } from "@/lib/public-content";
 import { photos } from "@/data/photos";
 import { cn } from "@/lib/utils";
 
 export function PackagesSection({ id }: { id?: string }) {
   const { openInquiry } = useInquiry();
+  const { packages } = usePackages();
+  const packageComparison = buildComparison(packages);
 
   return (
     <section id={id} className="relative scroll-mt-24 overflow-hidden py-24 md:py-36">
@@ -24,7 +27,7 @@ export function PackagesSection({ id }: { id?: string }) {
               Choose your <em className="text-gold-ink">perfect package</em>
             </>
           }
-          intro="Flexible packages for every story. Pricing is tailored to your date, location and coverage — send an inquiry for your personal quote."
+          intro="Flexible packages for every story. Send an inquiry and we'll confirm availability for your date."
         />
 
         <div className="mt-20 grid items-stretch gap-6 lg:grid-cols-3 lg:gap-8">
@@ -43,10 +46,10 @@ export function PackagesSection({ id }: { id?: string }) {
                 )}
                 <div className="flex items-center justify-between">
                   <p className="eyebrow">{p.tier}</p>
-                  {p.id === "luxury" && <Crown className="h-5 w-5 text-gold-ink" />}
+                  {p.slug === "luxury" && <Crown className="h-5 w-5 text-gold-ink" />}
                 </div>
                 <h3 className="mt-4 text-4xl text-foreground">{p.name}</h3>
-                <p className="mt-2 text-sm text-muted-foreground">{p.tagline}</p>
+                <p className="mt-2 text-sm text-muted-foreground">{p.description}</p>
                 <div className="my-8 border-y border-border py-6">
                   <p className={cn("font-serif text-3xl", p.price ? "text-gold-gradient" : "text-gold-ink")}>{formatPrice(p)}</p>
                   <p className="mt-1 text-xs uppercase tracking-[0.2em] text-muted-foreground">{p.priceNote}</p>

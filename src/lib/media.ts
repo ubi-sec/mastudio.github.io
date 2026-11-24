@@ -57,8 +57,8 @@ export async function uploadFile(
   if (!token) throw new Error("Your session has expired. Please sign in again.");
   const ext = (file.name.split(".").pop() || "bin").toLowerCase().replace(/[^a-z0-9]/g, "").slice(0, 5) || "bin";
   const path = `${folder}/${crypto.randomUUID()}.${ext}`;
-  const base = String(import.meta.env.VITE_SUPABASE_URL).replace(/\/+$/, "");
-  const key = String(import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY);
+  const base = String(import.meta.env['VITE_SUPABASE_URL']).replace(/\/+$/, "");
+  const key = String(import.meta.env['VITE_SUPABASE_PUBLISHABLE_KEY']);
 
   await new Promise<void>((resolve, reject) => {
     const xhr = new XMLHttpRequest();

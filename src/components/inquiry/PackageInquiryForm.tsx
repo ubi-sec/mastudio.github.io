@@ -9,7 +9,8 @@ import { SuccessPanel } from "./SuccessPanel";
 import { WhatsAppIcon } from "@/components/site/WhatsAppFloat";
 import { Button } from "@/components/ui/button";
 import { whatsappLink } from "@/config/site";
-import { packageOptions } from "@/data/packages";
+import { CUSTOM_PACKAGE } from "@/data/packages";
+import { usePackages } from "@/lib/public-content";
 import { eventTypes } from "@/data/services";
 import { submitPackageInquiry } from "@/lib/inquiries.functions";
 import { packageInquirySchema, packageInquiryWhatsAppText, type PackageInquiryInput } from "@/lib/inquiry-schema";
@@ -24,6 +25,8 @@ export function PackageInquiryForm({
   onDone?: (() => void) | undefined;
 }) {
   const submit = useServerFn(submitPackageInquiry);
+  const { packages } = usePackages();
+  const packageOptions = [...packages.map((p) => p.name), CUSTOM_PACKAGE];
   const [done, setDone] = useState<null | "form" | "whatsapp">(null);
   const form = useForm<PackageInquiryInput>({
     resolver: zodResolver(packageInquirySchema),
