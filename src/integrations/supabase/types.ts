@@ -753,6 +753,10 @@ export type Database = {
       }
       is_admin: { Args: never; Returns: boolean }
       is_public_media: { Args: { _path: string }; Returns: boolean }
+      save_invoice: {
+        Args: { _data: Json; _id: string; _items: Json }
+        Returns: string
+      }
     }
     Enums: {
       app_role: "admin"

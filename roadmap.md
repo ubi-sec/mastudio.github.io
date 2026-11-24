@@ -12,3 +12,4 @@
 - [ ] Admin: social links + website settings → public footer/contact/hero/about
 - [ ] Confirm admin email (answer looked like a password) — waiting on owner
 - [ ] Owner email notifications for new inquiries — needs a verified sending domain
+- [ ] WhatsApp assistant: 24/7 replies to new leads, quotes package prices, books a time, hands off to owner — needs WhatsApp Business connection
