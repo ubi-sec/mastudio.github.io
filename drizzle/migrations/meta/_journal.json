@@ -22,6 +22,20 @@
       "when": 1795515875840,
       "tag": "0002_invoice_save_and_payment_checks",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1795581272910,
+      "tag": "0003_invoice_number_fill",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1795581293954,
+      "tag": "0004_lov_database_migration",
+      "breakpoints": true
     }
   ]
 }

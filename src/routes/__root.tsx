@@ -22,6 +22,7 @@ import { Navbar } from "@/components/site/Navbar";
 import { themeInitScript } from "@/components/site/ThemeToggle";
 import { WhatsAppFloat } from "@/components/site/WhatsAppFloat";
 import { Toaster } from "@/components/ui/sonner";
+import { supabase } from "@/integrations/supabase/client";
 
 function NotFoundComponent() {
   return (
@@ -133,30 +134,47 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const router = useRouter();
   const { pathname } = useLocation();
+  const isAdminArea = pathname === "/admin" || pathname.startsWith("/admin/");
+
+  useEffect(() => {
+    const { data } = supabase.auth.onAuthStateChange((event) => {
+      if (event !== "SIGNED_IN" && event !== "SIGNED_OUT" && event !== "USER_UPDATED") return;
+      router.invalidate();
+      if (event !== "SIGNED_OUT") queryClient.invalidateQueries();
+    });
+    return () => data.subscription.unsubscribe();
+  }, [router, queryClient]);
 
   return (
     <QueryClientProvider client={queryClient}>
-      <InquiryProvider>
-        <Loader />
-        <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[300] focus:rounded-full focus:bg-gold focus:px-4 focus:py-2 focus:text-ink">
-          Skip to content
-        </a>
-        <Navbar />
-        <motion.main
-          id="main"
-          key={pathname}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-        >
-          {/* Required: nested routes render here. */}
-          <Outlet />
-        </motion.main>
-        <Footer />
-        <WhatsAppFloat />
-        <CustomCursor />
-        <Toaster
+      {isAdminArea ? (
+        // The admin area brings its own navigation, so the public chrome stays out of it.
+        <Outlet />
+      ) : (
+        <InquiryProvider>
+          <Loader />
+          <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[300] focus:rounded-full focus:bg-gold focus:px-4 focus:py-2 focus:text-ink">
+            Skip to content
+          </a>
+          <Navbar />
+          <motion.main
+            id="main"
+            key={pathname}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+          >
+            {/* Required: nested routes render here. */}
+            <Outlet />
+          </motion.main>
+          <Footer />
+          <WhatsAppFloat />
+          <CustomCursor />
+        </InquiryProvider>
+      )}
+      <Toaster
           position="top-center"
           toastOptions={{
             classNames: {
@@ -165,7 +183,6 @@ function RootComponent() {
             },
           }}
         />
-      </InquiryProvider>
     </QueryClientProvider>
   );
 }

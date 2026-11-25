@@ -56,6 +56,9 @@ export function Footer() {
           <p className="flex items-center gap-2">
             {site.signature} <Heart className="h-3 w-3 text-gold-ink" />
           </p>
+          <Link to="/auth" className="transition-colors hover:text-gold-ink">
+            Studio admin
+          </Link>
         </div>
       </div>
     </footer>
