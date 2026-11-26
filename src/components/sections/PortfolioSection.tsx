@@ -3,11 +3,12 @@ import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { Reveal, RevealImage } from "@/components/site/Reveal";
 import { SectionHeading } from "@/components/site/SectionHeading";
 import { Button } from "@/components/ui/button";
-import { portfolioProjects } from "@/data/portfolio";
+import { usePortfolio } from "@/lib/public-content";
 import { cn } from "@/lib/utils";
 
 export function PortfolioSection({ limit }: { limit?: number }) {
-  const projects = limit ? portfolioProjects.slice(0, limit) : portfolioProjects;
+  const { projects: allProjects } = usePortfolio();
+  const projects = limit ? allProjects.slice(0, limit) : allProjects;
 
   return (
     <section className="relative bg-surface py-24 md:py-32">

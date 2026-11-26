@@ -4,16 +4,16 @@ import { Reveal } from "@/components/site/Reveal";
 import { SectionHeading } from "@/components/site/SectionHeading";
 import { SocialLinks } from "@/components/site/SocialLinks";
 import { WhatsAppIcon } from "@/components/site/WhatsAppFloat";
-import { site, whatsappLink } from "@/config/site";
-
-const details = [
-  { Icon: Phone, label: "Phone", value: site.phoneDisplay, href: site.phoneHref, external: false },
-  { Icon: WhatsAppIcon, label: "WhatsApp", value: site.phoneDisplay, href: whatsappLink("Hello MA Studio!"), external: true },
-  { Icon: Mail, label: "Email", value: site.email, href: `mailto:${site.email}`, external: false },
-  { Icon: MapPin, label: "Studio location", value: site.location, href: site.mapUrl, external: true },
-];
+import { useSiteSettings, waLink } from "@/lib/public-content";
 
 export function ContactSection() {
+  const settings = useSiteSettings();
+  const details = [
+    { Icon: Phone, label: "Phone", value: settings.phoneDisplay, href: settings.phoneHref, external: false },
+    { Icon: WhatsAppIcon, label: "WhatsApp", value: settings.phoneDisplay, href: waLink(settings.whatsappNumber, "Hello MA Studio!"), external: true },
+    { Icon: Mail, label: "Email", value: settings.email, href: `mailto:${settings.email}`, external: false },
+    { Icon: MapPin, label: "Studio location", value: settings.location, href: settings.mapUrl, external: true },
+  ];
   return (
     <section id="booking" className="relative scroll-mt-24 bg-surface py-24 md:py-32">
       <div className="container-lux grid gap-16 lg:grid-cols-[1fr_1.4fr]">

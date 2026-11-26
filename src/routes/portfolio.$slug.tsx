@@ -1,4 +1,4 @@
-import { Link, createFileRoute, notFound } from "@tanstack/react-router";
+import { Link, createFileRoute } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, Check, Maximize2 } from "lucide-react";
 import { useState } from "react";
 import { useInquiry } from "@/components/inquiry/InquiryProvider";
@@ -6,28 +6,34 @@ import { Lightbox } from "@/components/site/Lightbox";
 import { PageHeader } from "@/components/site/PageHeader";
 import { Reveal, RevealImage } from "@/components/site/Reveal";
 import { Button } from "@/components/ui/button";
-import { getProject, portfolioProjects } from "@/data/portfolio";
+import { Busy, EmptyState } from "@/components/admin/ui";
+import { fallbackProject, usePortfolio } from "@/lib/public-content";
 import { pageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/portfolio/$slug")({
-  loader: ({ params }) => {
-    const project = getProject(params.slug);
-    if (!project) throw notFound();
-    return { project };
-  },
-  head: ({ loaderData, params }) => {
-    if (!loaderData) {
-      return { meta: [{ title: "Project unavailable — MA Studio" }, { name: "robots", content: "noindex" }] };
+  head: ({ params }) => {
+    const project = fallbackProject(params.slug);
+    if (!project) {
+      return pageHead({
+        title: "Photography project | MA Studio Portfolio",
+        description: "Explore this photography story from MA Studio.",
+        path: `/portfolio/${params.slug}`,
+        type: "article",
+      });
     }
-    const p = loaderData.project;
     return pageHead({
-      title: `${p.title} — ${p.category} | MA Studio Portfolio`,
-      description: p.summary,
+      title: `${project.title} — ${project.category} | MA Studio Portfolio`,
+      description: project.summary,
       path: `/portfolio/${params.slug}`,
       type: "article",
     });
   },
-  notFoundComponent: () => (
+  notFoundComponent: () => <ProjectMissing />,
+  component: ProjectPage,
+});
+
+function ProjectMissing() {
+  return (
     <div className="flex min-h-[70vh] flex-col items-center justify-center gap-6 px-4 pt-32 text-center">
       <p className="eyebrow">Portfolio</p>
       <h1 className="text-5xl text-foreground">Project not found</h1>
@@ -35,17 +41,21 @@ export const Route = createFileRoute("/portfolio/$slug")({
         <Link to="/portfolio">Back to portfolio</Link>
       </Button>
     </div>
-  ),
-  component: ProjectPage,
-});
+  );
+}
 
 function ProjectPage() {
-  const { project } = Route.useLoaderData();
+  const { slug } = Route.useParams();
+  const { projects, isLoading } = usePortfolio();
   const { openInquiry } = useInquiry();
   const [index, setIndex] = useState<number | null>(null);
+  const project = projects.find((item) => item.slug === slug);
 
-  const pos = portfolioProjects.findIndex((p) => p.slug === project.slug);
-  const next = portfolioProjects[(pos + 1) % portfolioProjects.length]!;
+  if (isLoading) return <div className="min-h-screen pt-32"><Busy label="Opening the project…" /></div>;
+  if (!project) return <ProjectMissing />;
+
+  const pos = projects.findIndex((item) => item.slug === project.slug);
+  const next = projects[(pos + 1) % projects.length] ?? project;
 
   return (
     <>
@@ -63,13 +73,15 @@ function ProjectPage() {
           </Reveal>
           <Reveal delay={0.15} className="h-fit rounded-xl border border-border bg-card p-8">
             <p className="eyebrow">Deliverables</p>
-            <ul className="mt-6 space-y-3">
-              {project.deliverables.map((d) => (
-                <li key={d} className="flex items-start gap-3 text-foreground/85">
-                  <Check className="mt-1 h-4 w-4 shrink-0 text-gold-ink" /> {d}
-                </li>
-              ))}
-            </ul>
+            {project.deliverables.length ? (
+              <ul className="mt-6 space-y-3">
+                {project.deliverables.map((d) => (
+                  <li key={d} className="flex items-start gap-3 text-foreground/85">
+                    <Check className="mt-1 h-4 w-4 shrink-0 text-gold-ink" /> {d}
+                  </li>
+                ))}
+              </ul>
+            ) : <EmptyState title="Project details coming soon" />}
             <dl className="mt-8 grid grid-cols-2 gap-4 border-t border-border pt-6 text-sm">
               <div>
                 <dt className="text-muted-foreground">Category</dt>

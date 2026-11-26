@@ -731,6 +731,158 @@ export type Database = {
         }
         Relationships: []
       }
+      whatsapp_assistant_settings: {
+        Row: {
+          enabled: boolean
+          id: number
+          updated_at: string
+        }
+        Insert: {
+          enabled?: boolean
+          id?: number
+          updated_at?: string
+        }
+        Update: {
+          enabled?: boolean
+          id?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      whatsapp_conversations: {
+        Row: {
+          booking_draft: Json
+          created_at: string
+          customer_name: string
+          id: string
+          last_inbound_at: string | null
+          phone: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          booking_draft?: Json
+          created_at?: string
+          customer_name?: string
+          id?: string
+          last_inbound_at?: string | null
+          phone: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          booking_draft?: Json
+          created_at?: string
+          customer_name?: string
+          id?: string
+          last_inbound_at?: string | null
+          phone?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      whatsapp_messages: {
+        Row: {
+          body: string
+          conversation_id: string
+          created_at: string
+          direction: string
+          id: string
+          last_error: string | null
+          message_type: string
+          next_reply_at: string | null
+          payload: Json
+          provider_message_id: string | null
+          provider_timestamp: string | null
+          reply_attempts: number
+          reply_state: string
+          reply_text: string | null
+          sent_at: string | null
+          status: string
+          status_history: Json
+        }
+        Insert: {
+          body?: string
+          conversation_id: string
+          created_at?: string
+          direction: string
+          id?: string
+          last_error?: string | null
+          message_type?: string
+          next_reply_at?: string | null
+          payload?: Json
+          provider_message_id?: string | null
+          provider_timestamp?: string | null
+          reply_attempts?: number
+          reply_state?: string
+          reply_text?: string | null
+          sent_at?: string | null
+          status?: string
+          status_history?: Json
+        }
+        Update: {
+          body?: string
+          conversation_id?: string
+          created_at?: string
+          direction?: string
+          id?: string
+          last_error?: string | null
+          message_type?: string
+          next_reply_at?: string | null
+          payload?: Json
+          provider_message_id?: string | null
+          provider_timestamp?: string | null
+          reply_attempts?: number
+          reply_state?: string
+          reply_text?: string | null
+          sent_at?: string | null
+          status?: string
+          status_history?: Json
+        }
+        Relationships: [
+          {
+            foreignKeyName: "whatsapp_messages_conversation_id_fkey"
+            columns: ["conversation_id"]
+            isOneToOne: false
+            referencedRelation: "whatsapp_conversations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      whatsapp_webhook_events: {
+        Row: {
+          delivery_id: string
+          event: string
+          id: string
+          next_retry_at: string | null
+          payload: Json
+          processed_at: string | null
+          processing_error: string | null
+          received_at: string
+        }
+        Insert: {
+          delivery_id: string
+          event: string
+          id?: string
+          next_retry_at?: string | null
+          payload: Json
+          processed_at?: string | null
+          processing_error?: string | null
+          received_at?: string
+        }
+        Update: {
+          delivery_id?: string
+          event?: string
+          id?: string
+          next_retry_at?: string | null
+          payload?: Json
+          processed_at?: string | null
+          processing_error?: string | null
+          received_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

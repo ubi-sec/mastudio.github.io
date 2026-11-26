@@ -3,6 +3,7 @@ import { Aperture, ArrowRight, Camera, Clapperboard, Plane, Sparkles, Sun } from
 import { Reveal, RevealImage } from "@/components/site/Reveal";
 import { Button } from "@/components/ui/button";
 import { photos } from "@/data/photos";
+import { useSiteSettings } from "@/lib/public-content";
 
 const pillars = [
   { Icon: Sparkles, title: "Creative philosophy", text: "Every frame should feel like a memory — honest emotion, elevated by deliberate, cinematic light." },
@@ -18,6 +19,7 @@ const equipment = [
 ];
 
 export function AboutSection({ full = false }: { full?: boolean }) {
+  const settings = useSiteSettings();
   return (
     <section className="relative py-24 md:py-32">
       <div className="container-lux grid items-center gap-14 lg:grid-cols-2 lg:gap-20">
@@ -34,11 +36,10 @@ export function AboutSection({ full = false }: { full?: boolean }) {
               <span className="h-px w-8 bg-gold" /> About MA Studio
             </p>
             <h2 className="mt-4 text-4xl leading-[1.05] text-foreground md:text-6xl">
-              More Than Just Photos. <em className="text-gold-ink">We Create Memories.</em>
+              {settings.aboutHeading}
             </h2>
             <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
-              MA Studio is a creative photography and cinematography studio from Faisalabad, dedicated to capturing life's most
-              beautiful moments with passion, precision and a commitment to quality.
+              {settings.aboutIntro}
             </p>
           </Reveal>
 

@@ -1,5 +1,6 @@
 import { useId } from "react";
 import { cn } from "@/lib/utils";
+import { useSiteSettings } from "@/lib/public-content";
 
 /** MA monogram: an M whose right peak doubles as the apex of an A. */
 export function Monogram({ className, animated = false }: { className?: string; animated?: boolean }) {
@@ -31,9 +32,10 @@ export function Monogram({ className, animated = false }: { className?: string; 
 }
 
 export function Logo({ className, compact = false }: { className?: string; compact?: boolean }) {
+  const settings = useSiteSettings();
   return (
     <span className={cn("inline-flex items-center gap-3", className)}>
-      <Monogram />
+      {settings.logo ? <img src={settings.logo} alt="MA Studio" className="h-10 w-auto max-w-32 object-contain" /> : <Monogram />}
       {!compact && (
         <span className="flex flex-col leading-none">
           <span className="font-serif text-xl font-medium tracking-wide text-foreground">MA Studio</span>

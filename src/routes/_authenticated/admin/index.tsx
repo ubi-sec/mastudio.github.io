@@ -2,6 +2,7 @@ import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { CalendarCheck, FileText, Inbox, Users } from "lucide-react";
+import type { ReactNode } from "react";
 import { AdminPage, EmptyState, Panel, StatCard, StatusPill } from "@/components/admin/ui";
 import { getAdminDashboard } from "@/lib/admin-dashboard.functions";
 import { formatDate, formatPKR } from "@/lib/format";
@@ -54,6 +55,7 @@ function DashboardPage() {
                     content={({ active, payload }) => {
                       if (!active || !payload?.length) return null;
                       const p = payload[0];
+                      if (!p) return null;
                       return (
                         <div className="rounded-lg border border-hairline bg-surface-raised px-3 py-2 text-xs text-foreground shadow-glow">
                           <p className="text-muted-foreground">{String(p.payload?.month ?? "")}</p>
@@ -123,7 +125,7 @@ function DashboardPage() {
   );
 }
 
-function ButtonLink({ to, children }: { to: "/admin/inquiries" | "/admin/invoices"; children: React.ReactNode }) {
+function ButtonLink({ to, children }: { to: "/admin/inquiries" | "/admin/invoices"; children: ReactNode }) {
   return (
     <Link
       to={to}

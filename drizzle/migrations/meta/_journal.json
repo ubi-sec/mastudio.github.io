@@ -36,6 +36,13 @@
       "when": 1795581293954,
       "tag": "0004_lov_database_migration",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1795664202855,
+      "tag": "0005_whatsapp_assistant_inbox",
+      "breakpoints": true
     }
   ]
 }

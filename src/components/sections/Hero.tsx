@@ -5,18 +5,18 @@ import { useState } from "react";
 import { GoldParticles } from "@/components/site/GoldParticles";
 import { ShowreelDialog } from "@/components/site/ShowreelDialog";
 import { Button } from "@/components/ui/button";
-import { site } from "@/config/site";
-import { photos } from "@/data/photos";
+import { useSiteSettings } from "@/lib/public-content";
 
 const ease = [0.2, 0.8, 0.2, 1] as const;
 
 export function Hero() {
   const [reel, setReel] = useState(false);
+  const settings = useSiteSettings();
 
   return (
     <section className="grain relative flex min-h-[100svh] items-center overflow-hidden bg-ink text-ivory">
       <motion.img
-        src={photos.hero}
+        src={settings.heroImage}
         alt="MA Studio photographer framing a shot in warm studio light"
         fetchPriority="high"
         initial={{ scale: 1.12, opacity: 0 }}
@@ -54,7 +54,7 @@ export function Hero() {
           transition={{ duration: 1.2, delay: 1.8, ease }}
           className="mt-4 text-[clamp(4rem,13vw,11rem)] font-medium leading-[0.88] tracking-tight"
         >
-          <span className="text-gold-gradient">MA</span> Studio
+          {settings.heroHeading}
         </motion.h1>
         <motion.p
           initial={{ opacity: 0, y: 30 }}
@@ -62,7 +62,7 @@ export function Hero() {
           transition={{ duration: 1, delay: 2, ease }}
           className="mt-6 max-w-2xl font-serif text-2xl leading-snug text-ivory md:text-4xl"
         >
-          {site.tagline}
+          {settings.heroTagline}
         </motion.p>
         <motion.p
           initial={{ opacity: 0, y: 30 }}
@@ -70,7 +70,7 @@ export function Hero() {
           transition={{ duration: 1, delay: 2.1, ease }}
           className="mt-4 flex max-w-xl items-center gap-4 text-base text-ivory/75 md:text-lg"
         >
-          {site.description}
+          {settings.heroDescription}
         </motion.p>
         <motion.div
           initial={{ opacity: 0, y: 30 }}

@@ -1,18 +1,23 @@
-import { Facebook, Instagram, Youtube } from "lucide-react";
-import { site } from "@/config/site";
+import { Facebook, Instagram, Linkedin, Music2, Youtube } from "lucide-react";
+import { useSiteSettings, type SocialKey } from "@/lib/public-content";
 import { cn } from "@/lib/utils";
 
-const items = [
+const items: { key: SocialKey; label: string; Icon: typeof Instagram }[] = [
   { key: "instagram", label: "Instagram", Icon: Instagram },
   { key: "facebook", label: "Facebook", Icon: Facebook },
   { key: "youtube", label: "YouTube", Icon: Youtube },
-] as const;
+  { key: "tiktok", label: "TikTok", Icon: Music2 },
+  { key: "linkedin", label: "LinkedIn", Icon: Linkedin },
+];
 
 export function SocialLinks({ className, withLabels = false }: { className?: string; withLabels?: boolean }) {
+  const settings = useSiteSettings();
   return (
     <ul className={cn("flex items-center gap-3", className)}>
       {items.map(({ key, label, Icon }) => {
-        const href = site.socials[key];
+        const social = settings.socials[key];
+        if (!social.enabled) return null;
+        const href = social.url.trim();
         const body = (
           <>
             <span className="grid h-10 w-10 place-items-center rounded-full border border-border transition-all duration-500 group-hover:border-gold group-hover:text-gold-ink">

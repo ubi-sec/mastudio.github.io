@@ -1,4 +1,4 @@
-import { whatsappLink } from "@/config/site";
+import { useSiteSettings, waLink } from "@/lib/public-content";
 
 export function WhatsAppIcon({ className }: { className?: string }) {
   return (
@@ -9,9 +9,10 @@ export function WhatsAppIcon({ className }: { className?: string }) {
 }
 
 export function WhatsAppFloat() {
+  const settings = useSiteSettings();
   return (
     <a
-      href={whatsappLink("Hello MA Studio! I'd like to know more about your photography services.")}
+      href={waLink(settings.whatsappNumber, "Hello MA Studio! I'd like to know more about your photography services.")}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat with MA Studio on WhatsApp"
